@@ -68,7 +68,7 @@ export function CarTable({ cars, getHref, onSelect, isDimmed = false }: CarTable
 
   return (
     <div className={cn("transition-opacity", isDimmed && "opacity-60")} aria-busy={isDimmed}>
-      <div className="hidden rounded-lg border md:block">
+      <div className="hidden rounded-lg border bg-card md:block">
         <Table>
           <TableHeader>
             <TableRow>
@@ -122,7 +122,7 @@ export function CarTable({ cars, getHref, onSelect, isDimmed = false }: CarTable
               car={car}
               getHref={getHref}
               onSelect={onSelect}
-              className="flex w-full items-center gap-3 rounded-lg border p-3 hover:bg-muted/50"
+              className="flex w-full items-center gap-3 rounded-lg border bg-card p-3 hover:bg-muted/50"
             >
               <CarThumbnail image={car.coverImage} plate={car.registrationNumber} />
               <span className="flex min-w-0 flex-col">

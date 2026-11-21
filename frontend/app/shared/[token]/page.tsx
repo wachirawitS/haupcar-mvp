@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { AppLogo } from "@/features/auth/components/app-logo";
 import { AUTH_MESSAGES } from "@/features/auth/messages";
 import { CarList } from "@/features/cars/components/car-list";
 import { CarListSkeleton } from "@/features/cars/components/car-list-states";
@@ -20,9 +21,9 @@ async function SharedCarList({ params }: Pick<PageProps<"/shared/[token]">, "par
 export default function SharedCarsPage({ params }: PageProps<"/shared/[token]">) {
   return (
     <>
-      <header className="border-b">
+      <header className="border-b bg-background">
         <div className="mx-auto flex h-14 max-w-5xl items-center px-4">
-          <span className="font-semibold">{AUTH_MESSAGES.appName}</span>
+          <AppLogo />
         </div>
       </header>
       <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-4 p-4">

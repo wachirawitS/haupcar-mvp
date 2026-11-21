@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Card, CardContent } from "@/components/ui/card";
 import { useCreateCar } from "../hooks/use-car-mutations";
 import { CAR_FORM_MESSAGES as M } from "../messages";
 import { type CarFormOutput, EMPTY_CAR_FORM } from "../schemas/car-form.schema";
@@ -28,8 +29,16 @@ export function CarCreatePage() {
   }
 
   return (
-    <CarForm defaultValues={EMPTY_CAR_FORM} onSubmit={submit}>
-      <LocalCarImageGallery files={files} onFilesChange={setFiles} disabled={createCar.isPending} />
-    </CarForm>
+    <Card>
+      <CardContent>
+        <CarForm defaultValues={EMPTY_CAR_FORM} onSubmit={submit}>
+          <LocalCarImageGallery
+            files={files}
+            onFilesChange={setFiles}
+            disabled={createCar.isPending}
+          />
+        </CarForm>
+      </CardContent>
+    </Card>
   );
 }

@@ -121,8 +121,9 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* Light gray page; header, inputs and content cards stay white. */
   body {
-    @apply bg-background text-foreground;
+    @apply bg-muted/60 text-foreground;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {

@@ -14,7 +14,7 @@ export function CarListSkeleton() {
   return (
     <div className="flex flex-col gap-2" aria-busy aria-label={CAR_MESSAGES.loading}>
       {Array.from({ length: SKELETON_ROWS }, (_, index) => (
-        <div key={index} className="flex items-center gap-3 rounded-lg border p-3">
+        <div key={index} className="flex items-center gap-3 rounded-lg border bg-card p-3">
           <Skeleton className="h-12 w-16" />
           <div className="flex flex-1 flex-col gap-2">
             <Skeleton className="h-4 w-32" />
@@ -38,7 +38,7 @@ function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed px-4 py-12 text-center">
+    <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed bg-card px-4 py-12 text-center">
       <div className="text-muted-foreground [&_svg]:size-8">{icon}</div>
       <p className="font-medium">{title}</p>
       {description && <p className="text-muted-foreground">{description}</p>}

@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Alert, AlertAction, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { isApiError } from "@/lib/api-error";
 import { useCar } from "../hooks/use-car";
@@ -33,7 +33,7 @@ function EditSkeleton() {
 
 function CarNotFound() {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed px-4 py-12 text-center">
+    <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed bg-card px-4 py-12 text-center">
       <SearchXIcon className="size-8 text-muted-foreground" />
       <p className="font-medium">{M.notFoundTitle}</p>
       <p className="text-muted-foreground">{M.notFoundDescription}</p>
@@ -68,20 +68,26 @@ function EditCar({ car }: { car: Car }) {
         </Alert>
       )}
 
-      <CarForm defaultValues={carToFormValues(car)} onSubmit={submit} />
+      <Card>
+        <CardContent>
+          <CarForm defaultValues={carToFormValues(car)} onSubmit={submit} />
+        </CardContent>
+      </Card>
 
-      <Separator />
-      <RemoteCarImageGallery
-        carId={car.id}
-        plate={car.registrationNumber}
-        images={car.images}
-        onUploaded={() => {
-          if (imagesFailed > 0) router.replace(pathname, { scroll: false });
-        }}
-      />
+      <Card>
+        <CardContent>
+          <RemoteCarImageGallery
+            carId={car.id}
+            plate={car.registrationNumber}
+            images={car.images}
+            onUploaded={() => {
+              if (imagesFailed > 0) router.replace(pathname, { scroll: false });
+            }}
+          />
+        </CardContent>
+      </Card>
 
-      <Separator />
-      <section className="flex flex-col gap-3 rounded-lg border border-destructive/30 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <section className="flex flex-col gap-3 rounded-xl border border-destructive/30 bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="font-medium">{M.dangerTitle}</h2>
           <p className="text-muted-foreground">{M.dangerDescription}</p>
