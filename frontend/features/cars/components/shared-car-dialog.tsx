@@ -109,7 +109,7 @@ function CarDetails({ car }: { car: Car }) {
           {car.color ? (
             <>
               <span
-                className="size-3.5 shrink-0 rounded-full ring-1 ring-foreground/20"
+                className="size-3.5 shrink-0 ring-1 ring-foreground/20"
                 style={{ background: CAR_COLOR_SWATCHES[car.color] }}
                 aria-hidden
               />

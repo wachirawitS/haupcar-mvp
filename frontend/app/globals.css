@@ -70,7 +70,8 @@
   --chart-3: oklch(0.45 0.017 213.2);
   --chart-4: oklch(0.378 0.015 216);
   --chart-5: oklch(0.275 0.011 216.9);
-  --radius: 0.625rem;
+  /* Square corners everywhere (only the app logo keeps its own radius). */
+  --radius: 0rem;
   --sidebar: oklch(0.987 0.002 197.1);
   --sidebar-foreground: oklch(0.148 0.004 228.8);
   --sidebar-primary: oklch(0.546 0.245 262.881);
@@ -123,7 +124,7 @@
   }
   /* Light gray page; header, inputs and content cards stay white. */
   body {
-    @apply bg-background text-foreground;
+    @apply bg-muted/60 text-foreground;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
