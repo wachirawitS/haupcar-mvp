@@ -17,7 +17,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { isApiError } from "@/lib/api-error";
-import { getToken } from "@/lib/auth-token";
+import { useIsLoggedIn } from "../hooks/use-is-logged-in";
 import { useLogin } from "../hooks/use-login";
 import { AUTH_MESSAGES, fieldErrorMessage, loginErrorMessage } from "../messages";
 import { loginFormSchema, type LoginFormValues } from "../schemas/login-form.schema";
@@ -42,7 +42,7 @@ export function LoginForm() {
 
   const router = useRouter();
   const nextPath = nextPathSchema.parse(useSearchParams().get("next") ?? "");
-  const [isAlreadyLoggedIn] = useState(() => getToken() !== null);
+  const isLoggedIn = useIsLoggedIn();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const loginMutation = useLogin();
 
@@ -52,15 +52,20 @@ export function LoginForm() {
     mode: "onSubmit",
   });
 
+  // Already logged in, or just logged in → go on. Runs again whenever this page is shown.
   useEffect(() => {
-    if (isAlreadyLoggedIn) router.replace(nextPath);
-  }, [isAlreadyLoggedIn, nextPath, router]);
+    if (isLoggedIn) router.replace(nextPath);
+  }, [isLoggedIn, nextPath, router]);
 
-  if (isAlreadyLoggedIn) return null;
+  if (isLoggedIn) return null;
 
   function onValid(values: LoginFormValues) {
     loginMutation.mutate(values, {
-      onSuccess: () => router.replace(nextPath),
+      // Next.js keeps this page alive after leaving it; do not keep the password around.
+      onSuccess: () => {
+        form.reset();
+        setIsPasswordVisible(false);
+      },
       onError: (error) => {
         for (const [name, errors] of getInlineFieldErrors(error) ?? []) {
           if (isFormField(name) && errors[0]) {
