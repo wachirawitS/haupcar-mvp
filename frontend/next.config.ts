@@ -3,9 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Self-contained server for the Docker image (§8.3).
   output: "standalone",
-  experimental: {
-    agentFeedback: true,
-  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
