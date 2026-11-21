@@ -27,6 +27,7 @@ frontend/
 │       ├── page.tsx            # list
 │       ├── new/page.tsx        # create
 │       └── [id]/edit/page.tsx  # edit
+│   └── shared/[token]/page.tsx # public read-only list (share link)
 ├── features/
 │   ├── cars/
 │   │   ├── components/         # car-table.tsx, car-form.tsx, ...
