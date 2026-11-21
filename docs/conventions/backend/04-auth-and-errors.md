@@ -8,7 +8,7 @@
 
 - The fixed username and password come from configuration (§11). They are never hard-coded or committed.
 - Compare the password in constant time (e.g. `crypto.timingSafeEqual`), never with `===`.
-- **Protected by default:** the auth guard is registered globally. Anonymous routes opt out with a `@Public()` decorator. Only `login` and `health` are public.
+- **Protected by default:** the auth guard is registered globally. Anonymous routes opt out with a `@Public()` decorator. Only `login`, `health` and the read-only `shared/:token/...` routes (which check the share token instead) are public.
 - A failed login returns `401 INVALID_CREDENTIALS` and does not reveal whether the username or the password was wrong.
 - Never log credentials or tokens.
 - No roles and no permissions. There is one fixed user.
@@ -49,6 +49,7 @@
 |---:|---|---|
 | 401 | `UNAUTHORIZED` / `INVALID_CREDENTIALS` | Missing/invalid auth / wrong login |
 | 404 | `CAR_NOT_FOUND` / `CAR_IMAGE_NOT_FOUND` | ID does not exist |
+| 404 | `SHARE_LINK_NOT_FOUND` | Share token unknown or revoked (same answer for both) |
 | 422 | `CAR_IMAGE_LIMIT_REACHED` | More than 10 images on one car |
 | 409 | `CAR_PLATE_EXISTS` | Duplicate plate (registration number + province, [ADR-0016](../../adr/0016-car-field-rules.md)) |
 | 413 / 422 | `FILE_TOO_LARGE` / `UNSUPPORTED_FILE_TYPE` | Image upload limits (§10) |

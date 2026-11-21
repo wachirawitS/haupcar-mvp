@@ -19,6 +19,7 @@
 |---|---|
 | `cars` | Car records, including their image keys |
 | `auth` | Login with fixed credentials, the auth guard |
+| `share-links` | The one read-only share token for the team (create / revoke / check). The public `/shared/:token/cars` routes live in `cars` and call its exported service |
 | `health` | `GET /health` for Docker healthchecks (controller → service → DB ping) |
 
 Full file-level tree: [`plan/project-structure.md`](../../plan/project-structure.md).
