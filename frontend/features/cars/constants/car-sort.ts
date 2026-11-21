@@ -13,4 +13,4 @@ export type CarSortOption = keyof typeof CAR_SORT_OPTIONS;
 export const DEFAULT_CAR_SORT: CarSortOption = "newest";
 export const CAR_SORT_KEYS = Object.keys(CAR_SORT_OPTIONS) as [CarSortOption, ...CarSortOption[]];
 
-export const CAR_PAGE_SIZE = 20;
+export const CAR_PAGE_SIZE = 10;

@@ -35,7 +35,7 @@ describe("car list URL params", () => {
   it("maps the sort option to the API sort + order", () => {
     expect(toCarListQuery(parse("sort=yearNewest&page=2"))).toEqual({
       page: 2,
-      limit: 20,
+      limit: 10,
       search: undefined,
       brand: undefined,
       sort: "year",
