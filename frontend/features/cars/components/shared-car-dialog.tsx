@@ -51,7 +51,7 @@ function PhotoViewer({ car }: { car: Car }) {
         />
       </a>
       {car.images.length > 1 && (
-        <ul className="flex gap-2 overflow-x-auto pb-1">
+        <ul className="-m-0.5 flex gap-2 overflow-x-auto p-0.5">
           {car.images.map((thumb, index) => (
             <li key={thumb.id} className="shrink-0">
               <button
@@ -60,8 +60,11 @@ function PhotoViewer({ car }: { car: Car }) {
                 aria-label={CAR_MESSAGES.showPhoto(index + 1)}
                 aria-pressed={index === selected}
                 className={cn(
-                  "relative block h-12 w-16 overflow-hidden rounded-md bg-muted ring-offset-2 ring-offset-popover",
-                  index === selected ? "ring-2 ring-primary" : "opacity-70 hover:opacity-100",
+                  // A border, not a ring: rings get clipped by the scrolling strip.
+                  "relative block h-12 w-16 overflow-hidden rounded-md border-2 bg-card transition-opacity",
+                  index === selected
+                    ? "border-primary"
+                    : "border-border opacity-70 hover:opacity-100",
                 )}
               >
                 <Image
