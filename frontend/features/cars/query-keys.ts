@@ -6,6 +6,7 @@ export const carKeys = {
   lists: () => [...carKeys.all, "list"] as const,
   list: (query: CarListQuery) => [...carKeys.lists(), query] as const,
   brands: () => [...carKeys.all, "brands"] as const,
+  detail: (id: string) => [...carKeys.all, "detail", id] as const,
   shared: (token: string) => ["shared-cars", token] as const,
   sharedList: (token: string, query: CarListQuery) =>
     [...carKeys.shared(token), "list", query] as const,

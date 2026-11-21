@@ -1,5 +1,5 @@
 import { apiRequest } from "@/lib/api-client";
-import type { Car, CarListQuery, CarPage } from "../types";
+import type { Car, CarColor, CarImage, CarListQuery, CarPage } from "../types";
 
 export function listCars(query: CarListQuery): Promise<CarPage> {
   return apiRequest<CarPage>("/cars", { query });
@@ -22,4 +22,45 @@ export function listSharedCarBrands(token: string): Promise<string[]> {
 
 export function getSharedCar(token: string, id: string): Promise<Car> {
   return apiRequest<Car>(`${sharedPath(token)}/${encodeURIComponent(id)}`);
+}
+
+// ---- Owner: single car, create / update / delete, images ----
+
+export type CarBody = {
+  registrationNumber: string;
+  province: string;
+  brand: string;
+  model: string;
+  year: number | null;
+  color: CarColor | null;
+  notes: string | null;
+};
+
+export function getCar(id: string): Promise<Car> {
+  return apiRequest<Car>(`/cars/${encodeURIComponent(id)}`);
+}
+
+export function createCar(body: CarBody): Promise<Car> {
+  return apiRequest<Car>("/cars", { method: "POST", body });
+}
+
+// Sends every field; null clears year, color and notes.
+export function updateCar(id: string, body: CarBody): Promise<Car> {
+  return apiRequest<Car>(`/cars/${encodeURIComponent(id)}`, { method: "PATCH", body });
+}
+
+export function deleteCar(id: string): Promise<void> {
+  return apiRequest<void>(`/cars/${encodeURIComponent(id)}`, { method: "DELETE" });
+}
+
+export function uploadCarImages(id: string, files: File[]): Promise<CarImage[]> {
+  const body = new FormData();
+  for (const file of files) body.append("files", file);
+  return apiRequest<CarImage[]>(`/cars/${encodeURIComponent(id)}/images`, { method: "POST", body });
+}
+
+export function deleteCarImage(id: string, imageId: string): Promise<void> {
+  return apiRequest<void>(`/cars/${encodeURIComponent(id)}/images/${encodeURIComponent(imageId)}`, {
+    method: "DELETE",
+  });
 }
