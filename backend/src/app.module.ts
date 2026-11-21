@@ -6,6 +6,7 @@ import { authConfig } from './config/auth.config';
 import { databaseConfig } from './config/database.config';
 import { validateEnv } from './config/env.validation';
 import { storageConfig } from './config/storage.config';
+import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
 
 @Module({
@@ -19,6 +20,7 @@ import { HealthModule } from './modules/health/health.module';
       inject: [databaseConfig.KEY],
       useFactory: (config: ConfigType<typeof databaseConfig>) => config,
     }),
+    AuthModule,
     HealthModule,
   ],
 })

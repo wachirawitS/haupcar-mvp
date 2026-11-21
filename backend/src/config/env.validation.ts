@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
   IsUrl,
+  Matches,
   Max,
   Min,
   validateSync,
@@ -85,8 +86,9 @@ class EnvironmentVariables {
   @IsNotEmpty()
   JWT_SECRET!: string;
 
+  // Number + unit, e.g. 30m, 8h, 1d. A bare number string would mean milliseconds.
   @IsOptional()
-  @IsString()
+  @Matches(/^\d+[smhd]$/)
   JWT_EXPIRES_IN?: string;
 }
 

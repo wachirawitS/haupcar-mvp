@@ -4,11 +4,12 @@ import {
   ApiServiceUnavailableResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { Public } from '../../../common/decorators/public.decorator';
 import { ErrorResponseDto } from '../../../common/dto/error-response.dto';
 import { HealthService } from '../services/health.service';
 
 // GET /health — public, version-neutral, outside the /api prefix (§12).
-// TODO(auth): mark @Public() once the global JwtAuthGuard exists.
+@Public()
 @ApiTags('health')
 @Controller({ path: 'health', version: VERSION_NEUTRAL })
 export class HealthController {
