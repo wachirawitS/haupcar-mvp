@@ -57,6 +57,13 @@ flowchart LR
 docker compose up -d --build
 ```
 
+| Service | URL |
+|---|---|
+| API | http://localhost:4000/api/v1 |
+| API docs (Swagger) | http://localhost:4000/api/docs |
+| Health | http://localhost:4000/health |
+| MinIO console | http://localhost:9001 (`minioadmin` / `minioadmin`) |
+
 ## Remark
 
 I designed the scope, architecture and all coding conventions in [`docs/conventions/`](docs/conventions/) myself, and I can explain every part of the code. AI (Claude) helped write code because time was short, but it follows my conventions, so the code stays consistent with my own style.
