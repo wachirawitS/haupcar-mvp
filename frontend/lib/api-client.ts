@@ -53,9 +53,13 @@ async function readJson(response: Response): Promise<unknown> {
 function handleUnauthorized(): void {
   clearToken();
   getQueryClient().clear();
+  if (typeof window === "undefined") return;
+  // Come back to the same page after logging in again.
+  const { pathname, search } = window.location;
+  const next = encodeURIComponent(`${pathname}${search}`);
   // Outside React there is no router; a full navigation also drops any in-memory state.
   // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-  if (typeof window !== "undefined") window.location.assign(LOGIN_PATH);
+  window.location.assign(`${LOGIN_PATH}?next=${next}`);
 }
 
 // The one HTTP client (§3). Components never call fetch directly.

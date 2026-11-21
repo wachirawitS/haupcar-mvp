@@ -31,7 +31,9 @@ function lastRequest(): { url: string; init: RequestInit } {
 
 beforeEach(() => {
   vi.stubGlobal("fetch", fetchMock);
-  vi.stubGlobal("window", { location: { assign: assignMock } });
+  vi.stubGlobal("window", {
+    location: { assign: assignMock, pathname: "/cars/1/edit", search: "?tab=images" },
+  });
 });
 
 afterEach(() => {
@@ -105,7 +107,7 @@ describe("apiRequest", () => {
     expect((error as ApiError).code).toBe(NETWORK_ERROR);
   });
 
-  it("on 401 clears the token and cache, then redirects to /login", async () => {
+  it("on 401 clears the token and cache, then redirects to /login with next", async () => {
     fetchMock.mockResolvedValue(
       jsonResponse(401, { statusCode: 401, code: "UNAUTHORIZED", message: "Unauthorized" }),
     );
@@ -113,7 +115,7 @@ describe("apiRequest", () => {
     await expect(apiRequest("/cars")).rejects.toMatchObject({ code: "UNAUTHORIZED" });
     expect(clearToken).toHaveBeenCalled();
     expect(clearCache).toHaveBeenCalled();
-    expect(assignMock).toHaveBeenCalledWith("/login");
+    expect(assignMock).toHaveBeenCalledWith("/login?next=%2Fcars%2F1%2Fedit%3Ftab%3Dimages");
   });
 
   it("does not redirect on 401 when skipAuthRedirect is set (login)", async () => {
