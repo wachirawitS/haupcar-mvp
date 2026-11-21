@@ -23,6 +23,8 @@ type CarTableProps = {
   getHref?: (car: CarListItem) => string;
   onSelect?: (car: CarListItem) => void;
   isDimmed?: boolean;
+  // Row number of the first car on this page minus one (page 2 of 10 → 10).
+  startIndex?: number;
 };
 
 function display(value: string | number | null): string {
@@ -56,7 +58,13 @@ function CarOpener({
 }
 
 // Desktop: a table. Phone: the same cars as stacked cards.
-export function CarTable({ cars, getHref, onSelect, isDimmed = false }: CarTableProps) {
+export function CarTable({
+  cars,
+  getHref,
+  onSelect,
+  isDimmed = false,
+  startIndex = 0,
+}: CarTableProps) {
   const router = useRouter();
 
   function openCar(car: CarListItem, event: MouseEvent<HTMLTableRowElement>) {
@@ -72,23 +80,28 @@ export function CarTable({ cars, getHref, onSelect, isDimmed = false }: CarTable
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-20">{CAR_MESSAGES.columnPhoto}</TableHead>
-              <TableHead>{CAR_MESSAGES.columnPlate}</TableHead>
+              <TableHead className="w-14 text-center">{CAR_MESSAGES.columnNumber}</TableHead>
+              <TableHead className="w-14">{CAR_MESSAGES.columnPhoto}</TableHead>
+              <TableHead className="w-32">{CAR_MESSAGES.columnPlate}</TableHead>
+              <TableHead className="w-40">{CAR_MESSAGES.columnProvince}</TableHead>
               <TableHead>{CAR_MESSAGES.columnBrandModel}</TableHead>
               <TableHead className="w-20">{CAR_MESSAGES.columnYear}</TableHead>
               <TableHead className="w-24">{CAR_MESSAGES.columnColor}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cars.map((car) => (
+            {cars.map((car, index) => (
               // Mouse users can click anywhere on the row; keyboard users tab to the plate.
               <TableRow
                 key={car.id}
                 className="cursor-pointer"
                 onClick={(event) => openCar(car, event)}
               >
+                <TableCell className="text-center text-muted-foreground tabular-nums">
+                  {startIndex + index + 1}
+                </TableCell>
                 <TableCell>
-                  <CarThumbnail image={car.coverImage} plate={car.registrationNumber} />
+                  <CarThumbnail image={car.coverImage} plate={car.registrationNumber} size="sm" />
                 </TableCell>
                 <TableCell>
                   <CarOpener
@@ -99,11 +112,11 @@ export function CarTable({ cars, getHref, onSelect, isDimmed = false }: CarTable
                   >
                     {car.registrationNumber}
                   </CarOpener>
-                  <div className="text-muted-foreground">{car.province}</div>
                 </TableCell>
-                <TableCell>
-                  <div>{car.brand}</div>
-                  <div className="text-muted-foreground">{car.model}</div>
+                <TableCell className="text-muted-foreground">{car.province}</TableCell>
+                {/* One line per row, so a full page of 10 cars fits on screen. */}
+                <TableCell className="max-w-0 truncate">
+                  {car.brand} <span className="text-muted-foreground">{car.model}</span>
                 </TableCell>
                 <TableCell>{display(car.year)}</TableCell>
                 <TableCell>

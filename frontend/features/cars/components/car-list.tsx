@@ -64,6 +64,7 @@ export function CarList({ source }: { source: CarListSource }) {
           getHref={source.kind === "owner" ? editHref : undefined}
           onSelect={source.kind === "shared" ? setSelectedCar : undefined}
           isDimmed={list.isPlaceholderData}
+          startIndex={(meta.page - 1) * meta.limit}
         />
         <CarListPagination meta={meta} onPageChange={(page) => setParams({ page })} />
       </>
@@ -77,8 +78,7 @@ export function CarList({ source }: { source: CarListSource }) {
       {source.kind === "shared" && (
         <SharedCarDialog
           token={source.token}
-          carId={selectedCar?.id ?? null}
-          plate={selectedCar?.registrationNumber ?? ""}
+          car={selectedCar}
           onClose={() => setSelectedCar(null)}
         />
       )}

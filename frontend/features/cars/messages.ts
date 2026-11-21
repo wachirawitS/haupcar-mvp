@@ -13,8 +13,10 @@ export const CAR_MESSAGES = {
   allBrands: "ทุกยี่ห้อ",
   sortLabel: "เรียงตาม",
 
+  columnNumber: "ลำดับ",
   columnPhoto: "รูป",
   columnPlate: "ทะเบียน",
+  columnProvince: "จังหวัด",
   columnBrandModel: "ยี่ห้อ / รุ่น",
   columnYear: "ปี",
   columnColor: "สี",
@@ -53,7 +55,6 @@ export const CAR_MESSAGES = {
   sharedInvalidTitle: "ลิงก์นี้ใช้ไม่ได้แล้ว",
   sharedInvalidDescription: "ลิงก์อาจถูกเปลี่ยนใหม่ กรุณาขอลิงก์ล่าสุดจากผู้ดูแลข้อมูลรถ",
 
-  detailTitle: "ข้อมูลรถ",
   detailLoadError: "โหลดข้อมูลรถไม่สำเร็จ",
   fieldProvince: "จังหวัด",
   fieldBrand: "ยี่ห้อ",
@@ -61,6 +62,9 @@ export const CAR_MESSAGES = {
   fieldYear: "ปี",
   fieldColor: "สี",
   fieldNotes: "หมายเหตุ",
+  noNotes: "ไม่มีหมายเหตุ",
+  showPhoto: (index: number) => `ดูรูปที่ ${index}`,
+  openFullPhoto: "เปิดรูปขนาดเต็ม",
   photoAlt: (plate: string, index: number) => `รูปรถทะเบียน ${plate} รูปที่ ${index}`,
   loading: "กำลังโหลด…",
 } as const;
