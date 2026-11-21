@@ -56,3 +56,7 @@ flowchart LR
 ```bash
 docker compose up -d --build
 ```
+
+## Remark
+
+I designed the scope, architecture and all coding conventions in [`docs/conventions/`](docs/conventions/) myself, and I can explain every part of the code. AI (Claude) helped write code because time was short, but it follows my conventions, so the code stays consistent with my own style.
