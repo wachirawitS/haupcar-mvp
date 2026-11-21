@@ -13,6 +13,8 @@ const CONSTRAINT_CODES: Record<string, string> = {
   maxLength: 'TOO_LONG',
   minLength: 'TOO_SHORT',
   whitelistValidation: 'UNKNOWN_FIELD',
+  matches: 'INVALID_FORMAT',
+  isIn: 'INVALID_VALUE',
 };
 
 function toCode(constraint: string): string {

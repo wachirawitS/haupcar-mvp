@@ -7,7 +7,9 @@ import { databaseConfig } from './config/database.config';
 import { validateEnv } from './config/env.validation';
 import { storageConfig } from './config/storage.config';
 import { AuthModule } from './modules/auth/auth.module';
+import { CarsModule } from './modules/cars/cars.module';
 import { HealthModule } from './modules/health/health.module';
+import { ShareLinksModule } from './modules/share-links/share-links.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { HealthModule } from './modules/health/health.module';
       useFactory: (config: ConfigType<typeof databaseConfig>) => config,
     }),
     AuthModule,
+    CarsModule,
     HealthModule,
+    ShareLinksModule,
   ],
 })
 export class AppModule {}

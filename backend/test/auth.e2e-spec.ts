@@ -1,29 +1,16 @@
-import { INestApplication, VersioningType } from '@nestjs/common';
+import type { INestApplication } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
-import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import type { App } from 'supertest/types';
-import { AppModule } from '../src/app.module';
-import { HttpExceptionFilter } from '../src/common/filters/http-exception.filter';
-import { createValidationPipe } from '../src/common/pipes/validation.pipe';
 import { authConfig } from '../src/config/auth.config';
+import { createTestApp } from './test-app';
 
-// Needs a real PostgreSQL (§14.1). Point DB_* at a test database, never the dev one.
 describe('POST /api/v1/auth/login (e2e)', () => {
   let app: INestApplication<App>;
   let credentials: { username: string; password: string };
 
   beforeAll(async () => {
-    const moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleRef.createNestApplication();
-    app.setGlobalPrefix('api', { exclude: ['health'] });
-    app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
-    app.useGlobalPipes(createValidationPipe());
-    app.useGlobalFilters(new HttpExceptionFilter());
-    await app.init();
+    ({ app } = await createTestApp());
 
     const config = app.get<ConfigType<typeof authConfig>>(authConfig.KEY);
     credentials = { username: config.username, password: config.password };
