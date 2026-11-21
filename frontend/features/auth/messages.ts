@@ -1,7 +1,7 @@
 import { NETWORK_ERROR } from "@/lib/api-error";
 
 export const AUTH_MESSAGES = {
-  appName: "CarLog",
+  appName: "CARLOG",
   appTagline: "ระบบบันทึกข้อมูลรถยนต์",
   loginTitle: "เข้าสู่ระบบ",
   loginDescription: "กรอกชื่อผู้ใช้และรหัสผ่านเพื่อเข้าใช้งาน",

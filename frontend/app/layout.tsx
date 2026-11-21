@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CarLog",
+  title: "CARLOG",
   description: "บันทึกและจัดการข้อมูลรถยนต์ของบริษัท",
 };
 
